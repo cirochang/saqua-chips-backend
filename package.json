@@ -1,0 +1,27 @@
+{
+  "name": "saqua_chips_back",
+  "version": "1.0.0",
+  "description": "Saqua chips system",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cirochang/saqua-chips-backend.git"
+  },
+  "keywords": [
+    "saquarema",
+    "chips",
+    "batata"
+  ],
+  "author": "Ciro Chang",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/cirochang/saqua-chips-backend/issues"
+  },
+  "homepage": "https://github.com/cirochang/saqua-chips-backend#readme",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
