@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 lib-cov
 *.seed
 *.log
@@ -31,7 +30,6 @@ bower_components
 # OS metadata
 .DS_Store
 Thumbs.db
-=======
 # Logs
 logs
 *.log
@@ -90,5 +88,3 @@ typings/
 
 # dotenv environment variables file
 .env
-
->>>>>>> d4300bd77bca2f5ee7a499a20c9f95056f7e051f
