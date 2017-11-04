@@ -7,6 +7,14 @@ var express = require('express'),
     cors = require('cors'),
     app = express();
 
+var mongoose = require('mongoose'),
+    Task = require('./api/models/userModel')
+
+// mongoose instance connection url connection
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/Tododb');
+
+
 // Environment configuration
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 var port = process.env.PORT || 3000;
@@ -17,25 +25,11 @@ var router = express.Router();
 // Configure express to handle HTTP requests
 app.use(cors());
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(methodOverride());
 
-// Define the route endpoints for our application
-
-// Create a new charge
-router.post('/charge', function(req, res){
-  res.sendStatus(200); // equivalent to res.status(200).send('OK')
-});
-
-// Route to get the data for a charge filtered by the charge's id
-router.get('/charge/:id', function(req, res){
-  res.sendStatus(200); // equivalent to res.status(200).send('OK')
-});
-
-// Register the router
-app.use('/', router);
+var routes = require('./api/routes/routes.js');
+routes(app);
 
 // Start the server
 app.listen(port, function(){
