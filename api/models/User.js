@@ -21,10 +21,6 @@ var UserSchema = new Schema({
     type: String,
     required: true,
   },
-  passwordConf: {
-    type: String,
-    required: true,
-  },
   created_at: {
     type: Date,
     default: Date.now
@@ -42,4 +38,4 @@ var UserSchema = new Schema({
   }*/
 });
 
-module.exports = mongoose.model('Users', UserSchema);
+module.exports = mongoose.model('User', UserSchema);
