@@ -19,11 +19,10 @@ exports.list_all_tasks = function(req, res) {
 
 exports.authenticate = function(req, res){
   User.findOne({
-    name: req.body.username
+    username: req.body.username
   }, function(err, user) {
     if (err)
       throw err;
-    console.log(user)
     if(!user)
       res.status(401).send('Falha na autenticação, verifique seu login e senha');
     else{
@@ -34,8 +33,8 @@ exports.authenticate = function(req, res){
           res.json({
             success: true,
             message: 'Token generated',
-            token: jwt.sign({username: user.username}, app.get('superSecret'), {
-              expiresInMinutes: 1440 // expires in 24 hours
+            token: jwt.sign({username: user.username}, req.app.get('superSecret'), {
+              expiresIn: '24h' // expires in 24 hours
             })
           });
         }
