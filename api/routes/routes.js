@@ -10,6 +10,8 @@ module.exports = function(app) {
 */
   app.route('/api/v1/user')
     .post(user.create)
+
+  app.route('/api/v1/authenticate')
     .post(user.authenticate)
 
 /*
