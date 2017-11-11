@@ -1,8 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    //Task = mongoose.model('Tasks');
-    User = mongoose.model('User');
+User = mongoose.model('User');
 
 var jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
@@ -51,7 +50,7 @@ exports.create = function(req, res){
   }
   else{
     var user = new User(req.body);
-    bcrypt.hash(req.body.password, 5, function( err, bcryptedPassword) {
+    bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword) {
       user.password = bcryptedPassword;
       user.save(function(err, user) {
         if (err)

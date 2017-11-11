@@ -8,11 +8,8 @@ module.exports = function(app) {
     .get(todoList.list_all_tasks)
     .post(todoList.create_a_task)
 */
-  app.route('/api/v1/user')
-    .post(user.create)
-
-  app.route('/api/v1/authenticate')
-    .post(user.authenticate)
+  app.route('/api/v1/user').post(user.create)
+  app.route('/api/v1/authenticate').post(user.authenticate)
 
 /*
   app.route('/tasks/:taskId')
