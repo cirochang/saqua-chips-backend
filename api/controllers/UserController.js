@@ -6,16 +6,6 @@ User = mongoose.model('User');
 var jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
-/*
-exports.list_all_tasks = function(req, res) {
-  Task.find({}, function(err, task) {
-    if (err)
-      res.send(err);
-    res.json(task);
-  });
-};
-*/
-
 exports.authenticate = function(req, res){
   User.findOne({
     username: req.body.username
@@ -34,8 +24,7 @@ exports.authenticate = function(req, res){
             message: 'Token generated',
             token: jwt.sign({username: user.username}, req.app.get('superSecret'), {
               expiresIn: '24h' // expires in 24 hours
-            }),
-            user: user
+            })
           });
         }
       });
@@ -61,16 +50,6 @@ exports.create = function(req, res){
     });
   }
 }
-/*
-exports.create_a_task = function(req, res) {
-  var new_task = new Task(req.body);
-  new_task.save(function(err, task) {
-    if (err)
-      res.send(err);
-    res.json(task);
-  });
-};
-*/
 
 exports.current_user = function(req, res) {
   User.findOne({

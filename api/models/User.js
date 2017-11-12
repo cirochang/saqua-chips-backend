@@ -15,27 +15,28 @@ var UserSchema = new Schema({
     type: String,
     unique: true,
     required: true,
-    trim: true
+    trim: true,
+    index: true,
+    lowercase: true
   },
   password: {
     type: String,
     required: true,
   },
-  created_at: {
+  avatar: {
+    data: Buffer,
+    type: String
+  },
+  createdAt: {
     type: Date,
     default: Date.now
   },
-  updated_at: {
+  updatedAt: {
     type: Date,
     default: Date.now
-  }/*
-  status: {
-    type: [{
-      type: String,
-      enum: ['pending', 'ongoing', 'completed']
-    }],
-    default: ['pending']
-  }*/
+  },
+  groupUser: { type: Schema.Types.ObjectId, ref: 'GroupUser' },
+
 });
 
 module.exports = mongoose.model('User', UserSchema);
