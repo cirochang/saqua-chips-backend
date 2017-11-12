@@ -34,7 +34,8 @@ exports.authenticate = function(req, res){
             message: 'Token generated',
             token: jwt.sign({username: user.username}, req.app.get('superSecret'), {
               expiresIn: '24h' // expires in 24 hours
-            })
+            }),
+            user: user
           });
         }
       });
@@ -59,7 +60,6 @@ exports.create = function(req, res){
       })
     });
   }
-
 }
 /*
 exports.create_a_task = function(req, res) {
@@ -70,15 +70,49 @@ exports.create_a_task = function(req, res) {
     res.json(task);
   });
 };
+*/
 
-exports.read_a_task = function(req, res) {
-  Task.findById(req.params.taskId, function(err, task) {
+exports.current_user = function(req, res) {
+  User.findOne({
+    id: req.decoded.id
+  }, function(err, user) {
     if (err)
       res.send(err);
-    res.json(task);
+    res.json(user);
   });
 };
 
+exports.show_users = function(req, res) {
+  User.find({}, function(err, users) {
+    if (err)
+      res.send(err);
+    res.json(users);
+  });
+};
+
+exports.authorize = function(req, res, next) {
+  var token = req.body.token || req.query.token || req.headers['x-access-token'];
+  if (token) {
+    // verifies secret and checks exp
+    jwt.verify(token, req.app.get('superSecret'), function(err, decoded) {
+      if (err) {
+        return res.json({ success: false, message: 'Failed to authenticate token.' });
+      } else {
+        // if everything is good, save to request for use in other routes
+        req.decoded = decoded;
+        next();
+      }
+    });
+  } else {
+    // if there is no token
+    // return an error
+    return res.status(403).send({
+        success: false,
+        message: 'No token provided.'
+    });
+  }
+}
+/*
 exports.update_a_task = function(req, res) {
   Task.findOneAndUpdate({_id: req.params.taskId}, req.body, {new: true}, function(err, task) {
     if (err)
