@@ -27,11 +27,11 @@ var UserSchema = new Schema({
     data: Buffer,
     type: String
   },
-  createdAt: {
+  created_at: {
     type: Date,
     default: Date.now
   },
-  updatedAt: {
+  updated_at: {
     type: Date,
     default: Date.now
   },

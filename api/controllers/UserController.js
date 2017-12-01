@@ -91,17 +91,17 @@ exports.authorize = function(req, res, next) {
     });
   }
 }
-/*
-exports.update_a_task = function(req, res) {
-  Task.findOneAndUpdate({_id: req.params.taskId}, req.body, {new: true}, function(err, task) {
+
+exports.update_user = function(req, res) {
+  User.findOneAndUpdate({_id: req.body.id}, req.body, {new: true}, function(err, task) {
     if (err)
       res.send(err);
-    res.json(task);
+    res.sendStatus(200);
   });
 };
 
-exports.delete_a_task = function(req, res) {
-  Task.remove({
+exports.delete_user = function(req, res) {
+  User.remove({
     _id: req.params.taskId
   }, function(err, task) {
     if (err)
@@ -109,4 +109,3 @@ exports.delete_a_task = function(req, res) {
     res.json({ message: 'Task successfully deleted' });
   });
 };
-*/
