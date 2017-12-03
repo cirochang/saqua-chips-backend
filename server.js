@@ -15,6 +15,9 @@ var mongoose = require('mongoose'),
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/ciro');
 
+var bootstrap = require('./tools/bootstrap.js');
+console.log(bootstrap);
+bootstrap.create_default_admin();
 
 // Environment configuration
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
