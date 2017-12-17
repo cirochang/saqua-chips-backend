@@ -23,6 +23,11 @@ var UserSchema = new Schema({
     type: String,
     required: true,
   },
+  role: {
+    type: String,
+    enum: ['employee', 'manager', 'director', 'developer'],
+    required: true
+  },
   avatar: {
     data: Buffer,
     type: String
@@ -34,9 +39,7 @@ var UserSchema = new Schema({
   updated_at: {
     type: Date,
     default: Date.now
-  },
-  groupUser: { type: Schema.Types.ObjectId, ref: 'GroupUser' },
-
+  }
 });
 
 module.exports = mongoose.model('User', UserSchema);
