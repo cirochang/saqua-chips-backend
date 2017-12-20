@@ -1,6 +1,6 @@
 'use strict';
 var multer  = require('multer')
-var upload = multer({ dest: './uploads/'});
+var upload = multer({ dest: '/tmp/'});
 
 module.exports = function(app) {
   var user = require('../controllers/UserController');
@@ -16,11 +16,10 @@ module.exports = function(app) {
   app.route('/api/v1/authenticate')
     .post(user.authenticate)
 
-
   app.route('/api/v1/group_products')
-    .get(groupProduct.show_groupProducts)
-    .post(upload.single('avatar'), groupProduct.create)
+    .get(user.authorize, groupProduct.show_groupProducts)
+    .post(user.authorize, upload.single('avatar'), groupProduct.create)
 
   app.route('/api/v1/group_products/:groupProductId/avatar')
-    .get(groupProduct.show_avatar)
+    .get(user.authorize, groupProduct.show_avatar)
 };
