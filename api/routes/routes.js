@@ -1,6 +1,10 @@
 'use strict';
+var multer  = require('multer')
+var upload = multer({ dest: './uploads/'});
+
 module.exports = function(app) {
   var user = require('../controllers/UserController');
+  var groupProduct = require('../controllers/GroupProductController');
 
   app.route('/api/v1/users')
     .get(user.authorize, user.show_users)
@@ -12,10 +16,11 @@ module.exports = function(app) {
   app.route('/api/v1/authenticate')
     .post(user.authenticate)
 
-/*
-  app.route('/tasks/:taskId')
-    .get(todoList.read_a_task)
-    .put(todoList.update_a_task)
-    .delete(todoList.delete_a_task);
-*/
+
+  app.route('/api/v1/group_products')
+    .get(groupProduct.show_groupProducts)
+    .post(upload.single('avatar'), groupProduct.create)
+
+  app.route('/api/v1/group_products/:groupProductId/avatar')
+    .get(groupProduct.show_avatar)
 };

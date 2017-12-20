@@ -9,7 +9,7 @@ const bcrypt = require('bcrypt');
 exports.authenticate = function(req, res){
   User.findOne({
     username: req.body.username
-  }, function(err, user) {
+  }).select('+password').exec(function(err, user) {
     if (err)
       throw err;
     if(!user)
@@ -29,13 +29,11 @@ exports.authenticate = function(req, res){
         }
       });
     }
-
   })
 }
 
 exports.create = function(req, res){
   if(!req.body.passwordConf || req.body.password !== req.body.passwordConf){
-    console.log(req.body.passwordConf)
     res.status(400).send('Senha e a confirmação de senha são diferentes');
   }
   else{

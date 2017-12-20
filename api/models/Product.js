@@ -29,6 +29,8 @@ var ProductSchema = new Schema({
   },
   groupProduct: { type: Schema.Types.ObjectId, ref: 'GroupProduct' },
 
+},{
+  timestamps: true
 });
 
 function getPrice(num){

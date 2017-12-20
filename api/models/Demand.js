@@ -6,24 +6,17 @@ var DemandSchema = new Schema({
   status: {
     type: [{
       type: String,
-      enum: ['pendente', 'fazendo', 'pronto', 'completado', 'cancelado']
+      enum: ['pending', 'doing', 'done', 'finished', 'canceled']
     }],
-    default: ['pendente']
+    default: ['pending'],
     index: true
   },
   details: {
     type: String,
   },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-    index: true
-  },
-  updatedAt: {
-    type: Date,
-    default: Date.now
-  },
   product: [{ type: Schema.Types.ObjectId, ref: 'Product' }]
+},{
+  timestamps: true
 });
 
 module.exports = mongoose.model('Demand', DemandSchema);

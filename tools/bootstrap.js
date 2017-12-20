@@ -8,9 +8,10 @@ exports.create_default_admin = function(){
     if (users.length <= 0){
       console.log('The database does not have any users, a default user will be created...');
       var user = new User({
-        first_name: 'admin',
-        last_name: 'admin',
+        firstName: 'admin',
+        lastName: 'admin',
         username: 'admin',
+        role: 'developer',
       });
       const bcrypt = require('bcrypt');
       bcrypt.hash('admin', 5, function(err, bcryptedPassword) {

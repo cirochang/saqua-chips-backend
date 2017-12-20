@@ -7,19 +7,19 @@ var GroupProductSchema = new Schema({
     type: String,
     required: true
   },
-  img: {
-    data: Buffer,
-    type: String,
+  avatar: {
+    type: Buffer,
     required: true
   },
   colorTag: {
-    type: String,
-    required: true
+    type: String
   },
   iconTag: {
     type: String
   },
   products: [{ type: Schema.Types.ObjectId, ref: 'Product' }]
+},{
+  timestamps: true
 });
 
 module.exports = mongoose.model('GroupProduct', GroupProductSchema);

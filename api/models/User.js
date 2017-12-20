@@ -3,11 +3,11 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-  first_name: {
+  firstName: {
     type: String,
     required: true
   },
-  last_name: {
+  lastName: {
     type: String,
     required: true
   },
@@ -22,6 +22,7 @@ var UserSchema = new Schema({
   password: {
     type: String,
     required: true,
+    select: false
   },
   role: {
     type: String,
@@ -31,15 +32,9 @@ var UserSchema = new Schema({
   avatar: {
     data: Buffer,
     type: String
-  },
-  created_at: {
-    type: Date,
-    default: Date.now
-  },
-  updated_at: {
-    type: Date,
-    default: Date.now
   }
+},{
+  timestamps: true
 });
 
 module.exports = mongoose.model('User', UserSchema);

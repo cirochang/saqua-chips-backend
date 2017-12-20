@@ -8,8 +8,10 @@ var express = require('express'),
     morgan = require('morgan'),
     app = express();
 
+
 var mongoose = require('mongoose'),
-    User = require('./api/models/User')
+    User = require('./api/models/User'),
+    GroupProduct = require('./api/models/GroupProduct')
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
