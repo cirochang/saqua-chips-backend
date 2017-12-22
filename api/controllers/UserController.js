@@ -28,6 +28,16 @@ exports.authenticate = function(req, res){
   });
 };
 
+exports.hasManagerAccess = function(req, res, next) {
+  User.findOne({id: req.decoded.id}, function(err, user) {
+    if (err)
+      return res.send(500, err);
+    if (!user.hasManagerAccess())
+      return res.send(401, 'Your User cant access this endpoint.');
+    next();
+  });
+};
+
 exports.authorize = function(req, res, next) {
   var token = req.body.token || req.query.token || req.headers['x-access-token'];
   if (!token)

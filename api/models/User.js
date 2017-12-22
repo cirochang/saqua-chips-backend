@@ -38,4 +38,10 @@ var UserSchema = new Schema({
   timestamps: true
 });
 
+UserSchema.methods = {
+  hasManagerAccess: function(){
+    return  ['manager', 'director', 'developer'].indexOf(this.role) >= 0;
+  }
+}
+
 module.exports = mongoose.model('User', UserSchema);
