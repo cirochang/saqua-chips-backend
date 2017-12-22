@@ -9,7 +9,8 @@ var GroupProductSchema = new Schema({
   },
   avatar: {
     type: Buffer,
-    required: true
+    required: true,
+    select: false
   },
   colorTag: {
     type: String

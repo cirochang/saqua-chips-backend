@@ -31,7 +31,8 @@ var UserSchema = new Schema({
   },
   avatar: {
     data: Buffer,
-    type: String
+    type: String,
+    select: false
   }
 },{
   timestamps: true
