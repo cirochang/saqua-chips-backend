@@ -10,10 +10,10 @@ var ProductSchema = new Schema({
   details: {
     type: String,
   },
-  img: {
+  avatar: {
     data: Buffer,
     type: String,
-    required: true
+    select: false
   },
   price: {
     type: Number,

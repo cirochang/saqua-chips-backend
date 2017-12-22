@@ -4,10 +4,8 @@ var mongoose = require('mongoose'),
 GroupProduct = mongoose.model('GroupProduct');
 
 exports.create = function(req, res){
-  var groupProduct = new GroupProduct({
-    name: req.body.name,
-    avatar: fs.readFileSync(req.file.path)
-  });
+  var groupProduct = new GroupProduct(req.body);
+  groupProduct.avatar = fs.readFileSync(req.file.path);
   groupProduct.save(function(err, user) {
     if (err) {
       res.send(500, err);

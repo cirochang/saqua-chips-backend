@@ -19,4 +19,7 @@ var DemandSchema = new Schema({
   timestamps: true
 });
 
+DemandSchema.index({createAt: 1});
+DemandSchema.index({updateAt: 1});
+
 module.exports = mongoose.model('Demand', DemandSchema);
