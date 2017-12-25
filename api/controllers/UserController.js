@@ -1,5 +1,5 @@
 'use strict';
-
+var fs = require('fs');
 var mongoose = require('mongoose'),
 User = mongoose.model('User');
 
@@ -65,13 +65,13 @@ exports.current_user = function(req, res) {
 };
 
 exports.create = function(req, res) {
-  console.log(req.body);
   if(!req.body.passwordConf || req.body.password !== req.body.passwordConf)
     return res.status(400).send('Senha e a confirmação de senha são diferentes');
   var user = new User(req.body);
   bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword) {
     user.password = bcryptedPassword;
-    user.avatar = fs.readFileSync(req.file.path);
+    if(req.file)
+      user.avatar = fs.readFileSync(req.file.path);
     user.save(function(err, user) {
       if (err)
         return res.send(500, err);
