@@ -21,10 +21,11 @@ module.exports = function(app) {
 
   app.route('/api/v1/users/:userId')
     .get(user.authorize, user.show)
+    .put(user.authorize, user.hasManagerAccess, upload.single('avatar'), user.update)
     .delete(user.authorize, user.hasManagerAccess, user.delete)
 
   app.route('/api/v1/users/:userId/avatar')
-    .get(user.authorize, user.show_avatar)
+    .get(user.show_avatar)
 
 /*
 // PRODUCT

@@ -65,9 +65,12 @@ exports.current_user = function(req, res) {
 };
 
 exports.create = function(req, res) {
+  var user = new User(req.body);
+  var error = user.validateSync();
+  if(error && error.errors)
+    return res.send(400, error.errors);
   if(!req.body.passwordConf || req.body.password !== req.body.passwordConf)
     return res.status(400).send('Senha e a confirmação de senha são diferentes');
-  var user = new User(req.body);
   bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword) {
     user.password = bcryptedPassword;
     if(req.file)
@@ -101,22 +104,33 @@ exports.show_avatar = function(req, res) {
       if (err)
         return res.send(500, err);
       if(!user)
-        return res.send(404, 'Any Group Product was found with this id');
-      res.contentType('image/png');
+        return res.send(404, 'Any User was found with this id');
+      res.contentType('image/jpg');
       return res.send(user.avatar);
   });
 };
 
 exports.update = function(req, res) {
-  User.findOneAndUpdate({_id: req.body.id}, req.body, {new: true}, function(err, user) {
-    if (err)
-      return res.send(err);
-    return res.json(user);
+  var user = new User(req.body);
+  var error = user.validateSync();
+  if(error && error.errors)
+    return res.send(400, error.errors);
+  if(!req.body.passwordConf || req.body.password !== req.body.passwordConf)
+    return res.status(400).send('Senha e a confirmação de senha são diferentes');
+  bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword) {
+    user.password = bcryptedPassword;
+    if(req.file)
+      user.avatar = fs.readFileSync(req.file.path);
+    User.findOneAndUpdate({_id: req.params.userId}, user, {new: true}, function(err, user) {
+      if (err)
+        return res.send(err);
+      return res.json(user);
+    })
   });
 };
 
 exports.delete = function(req, res) {
-  User.remove(req.params.userId, function(err) {
+  User.findByIdAndRemove(req.params.userId, function(err) {
     if(err)
       return res.send(500, err);
     return res.sendStatus(200);

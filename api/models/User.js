@@ -30,8 +30,7 @@ var UserSchema = new Schema({
     required: true
   },
   avatar: {
-    data: Buffer,
-    type: String,
+    type: Buffer,
     select: false
   }
 },{
