@@ -11,13 +11,13 @@ var ProductSchema = new Schema({
     type: String,
   },
   avatar: {
-    data: Buffer,
-    type: String,
+    type: Buffer,
+    required: true,
     select: false
   },
   price: {
     type: Number,
-    required: true
+    required: true,
     get: getPrice,
     set: setPrice
   },

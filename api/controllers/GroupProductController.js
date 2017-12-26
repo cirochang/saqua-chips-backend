@@ -5,23 +5,20 @@ GroupProduct = mongoose.model('GroupProduct');
 
 exports.create = function(req, res){
   var groupProduct = new GroupProduct(req.body);
-  groupProduct.avatar = fs.readFileSync(req.file.path);
+  if(req.file)
+    groupProduct.avatar = fs.readFileSync(req.file.path);
   groupProduct.save(function(err, user) {
-    if (err) {
-      res.send(500, err);
-    }else{
-      res.sendStatus(200);
-    }
+    if (err)
+      return res.send(500, err);
+    return res.sendStatus(200);
   });
 };
 
 exports.show_all = function(req, res) {
   GroupProduct.find({}, function(err, groupProducts) {
-    if (err) {
-      res.send(500, err);
-    } else {
-      res.json(groupProducts);
-    }
+    if (err)
+      return res.send(500, err);
+    return res.json(groupProducts);
   });
 };
 
@@ -49,12 +46,13 @@ exports.show_avatar = function(req, res) {
 };
 
 exports.update = function(req, res) {
-  GroupProduct.findOneAndUpdate({_id: req.body.id}, req.body, {new: true}, function(err, groupProduct) {
-    if (err) {
-      res.send(500, err);
-    } else {
-      res.json(groupProduct);
-    }
+  var groupProduct = new GroupProduct(req.body);
+  if(req.file)
+    groupProduct.avatar = fs.readFileSync(req.file.path);
+  GroupProduct.findOneAndUpdate({_id: req.params.groupProductId}, groupProduct, {new: true}, function(err, groupProduct) {
+    if (err)
+      return res.send(500, err);
+    return res.json(groupProduct);
   });
 };
 

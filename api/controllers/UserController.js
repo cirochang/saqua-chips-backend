@@ -125,7 +125,7 @@ exports.update = function(req, res) {
       if (err)
         return res.send(err);
       return res.json(user);
-    })
+    });
   });
 };
 

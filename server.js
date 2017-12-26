@@ -11,7 +11,9 @@ var express = require('express'),
 
 var mongoose = require('mongoose'),
     User = require('./api/models/User'),
-    GroupProduct = require('./api/models/GroupProduct')
+    GroupProduct = require('./api/models/GroupProduct'),
+    Product = require('./api/models/Product')
+
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;

@@ -14,6 +14,10 @@ var DemandSchema = new Schema({
   details: {
     type: String,
   },
+  ticket: {
+    type: Number,
+    required: true
+  },
   product: [{ type: Schema.Types.ObjectId, ref: 'Product' }]
 },{
   timestamps: true

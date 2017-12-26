@@ -5,7 +5,7 @@ var upload = multer({ dest: '/tmp/'});
 module.exports = function(app) {
   var user = require('../controllers/UserController');
   var groupProduct = require('../controllers/GroupProductController');
-//  var product = require('../controllers/Product');
+  var product = require('../controllers/ProductController');
 
 // AUTHENTHICATE
   app.route('/api/v1/current_user')
@@ -27,7 +27,6 @@ module.exports = function(app) {
   app.route('/api/v1/users/:userId/avatar')
     .get(user.show_avatar)
 
-/*
 // PRODUCT
   app.route('/api/v1/products')
     .get(user.authorize, product.show_all)
@@ -35,11 +34,11 @@ module.exports = function(app) {
 
   app.route('/api/v1/products/:productId')
     .get(user.authorize, product.show)
+    .put(user.authorize, user.hasManagerAccess, upload.single('avatar'), product.update)
     .delete(user.authorize, user.hasManagerAccess, product.delete)
 
   app.route('/api/v1/products/:productId/avatar')
     .get(user.authorize, product.show_avatar)
-*/
 
 //GROUP PRODUCT
   app.route('/api/v1/group_products')
@@ -48,6 +47,7 @@ module.exports = function(app) {
 
   app.route('/api/v1/group_products/:groupProductId')
     .get(user.authorize, groupProduct.show)
+    .put(user.authorize, user.hasManagerAccess, upload.single('avatar'), groupProduct.update)
     .delete(user.authorize, user.hasManagerAccess, groupProduct.delete)
 
   app.route('/api/v1/group_products/:groupProductId/avatar')

@@ -5,7 +5,8 @@ Product = mongoose.model('Product');
 
 exports.create = function(req, res){
   var product = new Product(req.body);
-  product.avatar = fs.readFileSync(req.file.path);
+  if(req.file)
+    product.avatar = fs.readFileSync(req.file.path);
   product.save(function(err, product) {
     if (err)
       return res.send(500, err);
@@ -41,7 +42,10 @@ exports.show_avatar = function(req, res) {
 };
 
 exports.update = function(req, res) {
-  Product.findOneAndUpdate({_id: req.body.id}, req.body, {new: true}, function(err, product) {
+  var product = new Product(req.body);
+  if(req.file)
+    product.avatar = fs.readFileSync(req.file.path);
+  Product.findOneAndUpdate({_id: req.params.productId}, product, {new: true}, function(err, product) {
     if (err)
       return res.send(500, err);
     return res.json(product);
