@@ -1,4 +1,3 @@
-'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
@@ -41,6 +40,6 @@ UserSchema.methods = {
   hasManagerAccess: function(){
     return  ['manager', 'director', 'developer'].indexOf(this.role) >= 0;
   }
-}
+};
 
 module.exports = mongoose.model('User', UserSchema);

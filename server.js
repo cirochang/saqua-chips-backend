@@ -12,12 +12,14 @@ var express = require('express'),
 var mongoose = require('mongoose'),
     User = require('./api/models/User'),
     GroupProduct = require('./api/models/GroupProduct'),
-    Product = require('./api/models/Product')
+    Product = require('./api/models/Product'),
+    Demand = require('./api/models/Demand');
 
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/ciro');
+var mongodbUri = process.env.MONGODB_URI || 'mongodb://localhost/saquachips';
+mongoose.connect(mongodbUri);
 
 var bootstrap = require('./tools/bootstrap.js');
 bootstrap.create_default_admin();
@@ -43,5 +45,5 @@ routes(app);
 
 // Start the server
 app.listen(port, function(){
-  console.log('Server listening on port ' + port)
+  console.log('Server listening on port ' + port);
 });

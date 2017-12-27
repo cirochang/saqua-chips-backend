@@ -1,4 +1,3 @@
-'use strict';
 var fs = require('fs');
 var mongoose = require('mongoose'),
 Product = mongoose.model('Product');

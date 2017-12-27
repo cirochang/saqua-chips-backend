@@ -22,11 +22,11 @@ exports.create_default_admin = function(){
           }else{
             console.log('Default user created sucessfully!');
           }
-        })
+        });
       });
     }else{
-      console.log('skipping (create_default_admin)...')
+      console.log('skipping (create_default_admin)...');
     }
-  })
+  });
 
 };
