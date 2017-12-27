@@ -1,2 +1,1 @@
-# saqua-chips-backend
-A backend system for a specific store
+https://www.codementor.io/olatundegaruba/nodejs-restful-apis-in-10-minutes-q0sgsfhbd

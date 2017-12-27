@@ -1,27 +1,35 @@
 {
-  "name": "saqua_chips_back",
+  "name": "saqua-chips-back",
   "version": "1.0.0",
-  "description": "Saqua chips system",
+  "description": "node.js application backend",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon server.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/cirochang/saqua-chips-backend.git"
   },
-  "keywords": [
-    "saquarema",
-    "chips",
-    "batata"
-  ],
-  "author": "Ciro Chang",
+  "author": "ciro chang",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/cirochang/saqua-chips-backend/issues"
   },
   "homepage": "https://github.com/cirochang/saqua-chips-backend#readme",
   "dependencies": {
-    "express": "^4.16.2"
+    "bcrypt": "^1.0.3",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "jsonwebtoken": "^8.1.0",
+    "method-override": "^2.3.10",
+    "mongoose": "^4.13.0",
+    "morgan": "^1.9.0",
+    "multer": "^1.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
   }
 }
