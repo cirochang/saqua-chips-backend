@@ -13,10 +13,7 @@ exports.create = function(req, res){
 };
 
 exports.show_all = function(req, res) {
-  var query = {};
-  if(req.query)
-    query = req.query;
-  Demand.find(query).limit(20).populate({path: 'products', model: 'Product'}).exec(function(err, demands) {
+  Demand.apiQuery(req.query).populate({path: 'products', model: 'Product'}).exec(function(err, demands) {
     if (err)
       return res.send(500, err);
     return res.json(demands);

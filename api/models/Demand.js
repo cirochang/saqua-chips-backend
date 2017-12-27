@@ -1,12 +1,11 @@
 var mongoose = require('mongoose');
+var mongooseStringQuery = require('mongoose-string-query');
 var Schema = mongoose.Schema;
 
 var DemandSchema = new Schema({
   status: {
-    type: [{
-      type: String,
-      enum: ['pending', 'doing', 'done', 'finished', 'canceled']
-    }],
+    type: String,
+    enum: ['pending', 'doing', 'done', 'finished', 'canceled'],
     default: ['pending'],
     index: true
   },
@@ -35,5 +34,7 @@ DemandSchema.pre('save', function(next) {
     next(new Error('A demanda precisa de pelo menos de um produto'));
   }
 });
+
+DemandSchema.plugin(mongooseStringQuery);
 
 module.exports = mongoose.model('Demand', DemandSchema);
