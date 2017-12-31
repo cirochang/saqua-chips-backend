@@ -47,7 +47,7 @@ module.exports = function(app) {
     .delete(user.authorize, user.hasManagerAccess, product.delete);
 
   app.route('/api/v1/products/:productId/avatar')
-    .get(user.authorize, product.show_avatar);
+    .get(product.show_avatar);
 
 //GROUP PRODUCT
   app.route('/api/v1/group_products')
@@ -60,6 +60,6 @@ module.exports = function(app) {
     .delete(user.authorize, user.hasManagerAccess, groupProduct.delete);
 
   app.route('/api/v1/group_products/:groupProductId/avatar')
-    .get(user.authorize, groupProduct.show_avatar);
+    .get(groupProduct.show_avatar);
 
 };

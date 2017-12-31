@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var mongooseStringQuery = require('mongoose-string-query');
 var Schema = mongoose.Schema;
 
 var ProductSchema = new Schema({
@@ -26,7 +27,7 @@ var ProductSchema = new Schema({
   iconTag: {
     type: String
   },
-  groupProduct: { type: Schema.Types.ObjectId, ref: 'GroupProduct' },
+  groupProduct: { type: Schema.Types.ObjectId, ref: 'GroupProduct', required: true },
 
 },{
   timestamps: true
@@ -39,5 +40,7 @@ function getPrice(num){
 function setPrice(num){
     return num*100;
 }
+
+ProductSchema.plugin(mongooseStringQuery);
 
 module.exports = mongoose.model('Product', ProductSchema);

@@ -22,7 +22,7 @@ exports.show_all = function(req, res) {
 };
 
 exports.show = function(req, res) {
-  GroupProduct.findById(req.params.groupProductId, function(err, groupProduct) {
+  GroupProduct.findById(req.params.groupProductId).exec(function(err, groupProduct) {
     if(err) {
       res.send(500, err);
     } else {
@@ -56,7 +56,7 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-  GroupProduct.remove(req.params.groupProductId, function(err) {
+  GroupProduct.findByIdAndRemove(req.params.groupProductId, function(err) {
     if(err) {
       res.send(500, err);
     } else {

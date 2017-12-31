@@ -56,7 +56,7 @@ exports.authorize = function(req, res, next) {
 };
 
 exports.current_user = function(req, res) {
-  User.findOne({id: req.decoded.id}, function(err, user) {
+  User.findOne({username: req.decoded.username}, function(err, user) {
     if (err)
       return res.send(500, err);
     return res.json(user);

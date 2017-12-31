@@ -4,6 +4,7 @@ Product = mongoose.model('Product');
 
 exports.create = function(req, res){
   var product = new Product(req.body);
+  product.status = 'pending';
   if(req.file)
     product.avatar = fs.readFileSync(req.file.path);
   product.save(function(err, product) {
@@ -14,7 +15,7 @@ exports.create = function(req, res){
 };
 
 exports.show_all = function(req, res) {
-  Product.find({}, function(err, products) {
+  Product.apiQuery(req.query).populate({path: 'groupProduct', model: 'GroupProduct'}).exec(function(err, products) {
     if (err)
       return res.send(500, err);
     return res.json(products);
@@ -52,7 +53,7 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-  Product.remove(req.params.productId, function(err) {
+  Product.findByIdAndRemove(req.params.productId, function(err) {
     if(err)
       return res.send(500, err);
     return res.sendStatus(200);
