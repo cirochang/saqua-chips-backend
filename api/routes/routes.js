@@ -34,7 +34,7 @@ module.exports = function(app) {
 
   app.route('/api/v1/demands/:demandId')
     .get(user.authorize, demand.show)
-    .put(user.authorize, user.hasManagerAccess, demand.update);
+    .put(user.authorize, demand.update);
 
 // PRODUCT
   app.route('/api/v1/products')
