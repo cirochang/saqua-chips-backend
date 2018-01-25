@@ -1,7 +1,7 @@
 zip -r saqua-chips-backend.zip ../saqua-chips-backend
-scp -i ~/.ssh/id_rsa ~/Projects/saqua-chips-backend/saqua-chips-backend.zip pi@192.168.1.12:
+scp -i ~/.ssh/id_rsa ~/Projects/saqua-chips-backend/saqua-chips-backend.zip pi@10.3.141.1:
 rm saqua-chips-backend.zip
-ssh -i ~/.ssh/id_rsa pi@192.168.1.12 <<'ENDSSH'
+ssh -i ~/.ssh/id_rsa pi@10.3.141.1 <<'ENDSSH'
 rm -rf saqua-chips-backend
 unzip saqua-chips-backend.zip
 rm saqua-chips-backend.zip
