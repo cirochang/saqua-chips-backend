@@ -7,14 +7,14 @@ module.exports = function(app) {
   var product = require('../controllers/ProductController');
   var demand = require('../controllers/DemandController');
 
-// AUTHENTHICATE
+  // AUTHENTHICATE
   app.route('/api/v1/current_user')
     .get(user.authorize, user.current_user);
 
   app.route('/api/v1/authenticate')
     .post(user.authenticate);
 
-// USER
+  // USER
   app.route('/api/v1/users')
     .get(user.authorize, user.show_all)
     .post(user.authorize, user.hasManagerAccess, upload.single('avatar'), user.create);
@@ -27,7 +27,7 @@ module.exports = function(app) {
   app.route('/api/v1/users/:userId/avatar')
     .get(user.show_avatar);
 
-// DEMANDS
+  // DEMANDS
   app.route('/api/v1/demands')
     .get(user.authorize, demand.show_all)
     .post(user.authorize, user.hasManagerAccess, demand.create);
@@ -36,7 +36,7 @@ module.exports = function(app) {
     .get(user.authorize, demand.show)
     .put(user.authorize, demand.update);
 
-// PRODUCT
+  // PRODUCT
   app.route('/api/v1/products')
     .get(user.authorize, product.show_all)
     .post(user.authorize, user.hasManagerAccess, upload.single('avatar'), product.create);
@@ -49,7 +49,7 @@ module.exports = function(app) {
   app.route('/api/v1/products/:productId/avatar')
     .get(product.show_avatar);
 
-//GROUP PRODUCT
+  //GROUP PRODUCT
   app.route('/api/v1/group_products')
     .get(user.authorize, groupProduct.show_all)
     .post(user.authorize, user.hasManagerAccess, upload.single('avatar'), groupProduct.create);
