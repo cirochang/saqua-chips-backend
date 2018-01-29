@@ -83,10 +83,14 @@ exports.create = function(req, res) {
 };
 
 exports.show_all = function(req, res) {
-  User.find({}, function(err, users) {
+  User.findOne({username: req.decoded.username}, function(err, currentUser) {
     if (err)
       return res.send(500, err);
-    return res.json(users);
+    User.find({role:  { $in: currentUser.powerOverRoles() }}, function(err, users) {
+      if (err)
+        return res.send(500, err);
+      return res.json(users);
+    });
   });
 };
 

@@ -1,6 +1,8 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
+var roles = ['employee', 'manager', 'director', 'developer'];
+
 var UserSchema = new Schema({
   firstName: {
     type: String,
@@ -25,7 +27,7 @@ var UserSchema = new Schema({
   },
   role: {
     type: String,
-    enum: ['employee', 'manager', 'director', 'developer'],
+    enum: roles,
     required: true
   },
   avatar: {
@@ -37,8 +39,11 @@ var UserSchema = new Schema({
 });
 
 UserSchema.methods = {
-  hasManagerAccess: function(){
+  hasManagerAccess: function() {
     return  ['manager', 'director', 'developer'].indexOf(this.role) >= 0;
+  },
+  powerOverRoles: function() {
+    return roles.slice(0 ,roles.indexOf(this.role) + 1);
   }
 };
 
