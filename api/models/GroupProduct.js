@@ -8,7 +8,6 @@ var GroupProductSchema = new Schema({
   },
   avatar: {
     type: Buffer,
-    required: true,
     select: false
   },
   colorTag: {

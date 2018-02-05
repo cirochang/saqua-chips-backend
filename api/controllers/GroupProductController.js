@@ -4,8 +4,8 @@ GroupProduct = mongoose.model('GroupProduct');
 
 exports.create = function(req, res){
   var groupProduct = new GroupProduct(req.body);
-  if(req.file)
-    groupProduct.avatar = fs.readFileSync(req.file.path);
+  let filePath = req.file ? req.file.path : 'api/assets/photo_not_found.png'
+  groupProduct.avatar = fs.readFileSync(filePath);
   groupProduct.save(function(err, user) {
     if (err)
       return res.send(500, err);
@@ -39,7 +39,9 @@ exports.show_avatar = function(req, res) {
         res.send(404, 'Any Group Product was found with this id');
       } else {
         res.contentType('image/png');
-        res.send(groupProduct.avatar);
+        if(groupProduct.avatar)
+          return res.send(groupProduct.avatar);
+        return res.send(fs.readFileSync('api/assets/photo_not_found.png'));
       }
   });
 };

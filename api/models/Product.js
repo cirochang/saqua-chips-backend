@@ -12,8 +12,7 @@ var ProductSchema = new Schema({
   },
   avatar: {
     type: Buffer,
-    required: true,
-    select: false
+    select: false,
   },
   price: {
     type: Number,
@@ -26,6 +25,11 @@ var ProductSchema = new Schema({
   },
   iconTag: {
     type: String
+  },
+  deleted: {
+    type: Boolean,
+    index: true,
+    default: false
   },
   groupProduct: { type: Schema.Types.ObjectId, ref: 'GroupProduct', required: true },
 

@@ -4,12 +4,11 @@ Product = mongoose.model('Product');
 
 exports.create = function(req, res){
   var product = new Product(req.body);
-  product.status = 'pending';
-  if(req.file)
-    product.avatar = fs.readFileSync(req.file.path);
+  let filePath = req.file ? req.file.path : 'api/assets/photo_not_found.png'
+  product.avatar = fs.readFileSync(filePath);
   product.save(function(err, product) {
     if (err)
-      return res.send(500, err);
+      return res.status(500).send(err);
     return res.sendStatus(200);
   });
 };
@@ -35,9 +34,12 @@ exports.show_avatar = function(req, res) {
       if (err)
         return res.send(500, err);
       if(!product)
-        return res.send(404, 'Any Group Product was found with this id');
+        return res.send(404, 'Any Product was found with this id');
       res.contentType('image/png');
-      return res.send(product.avatar);
+      if(product.avatar)
+        console.log(product.avatar);
+        return res.send(product.avatar);
+      return res.send(fs.readFileSync('api/assets/photo_not_found.png'));
   });
 };
 
@@ -53,7 +55,7 @@ exports.update = function(req, res) {
 };
 
 exports.delete = function(req, res) {
-  Product.findByIdAndRemove(req.params.productId, function(err) {
+  Product.findOneAndUpdate({_id: req.params.productId}, {deleted: true}, {upsert:true}, function(err) {
     if(err)
       return res.send(500, err);
     return res.sendStatus(200);

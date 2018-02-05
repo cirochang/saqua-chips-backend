@@ -28,7 +28,7 @@ exports.authenticate = function(req, res){
 };
 
 exports.hasManagerAccess = function(req, res, next) {
-  User.findOne({id: req.decoded.id}, function(err, user) {
+  User.findOne({username: req.decoded.username}, function(err, user) {
     if (err)
       return res.send(500, err);
     if (!user.hasManagerAccess())
@@ -50,6 +50,7 @@ exports.authorize = function(req, res, next) {
           success: false,
           message: 'Failed to authenticate token.'
       });
+    console.log(decoded);
     req.decoded = decoded;
     next();
   });
@@ -72,8 +73,8 @@ exports.create = function(req, res) {
     return res.status(400).send('Senha e a confirmação de senha são diferentes');
   bcrypt.hash(req.body.password, 5, function(err, bcryptedPassword) {
     user.password = bcryptedPassword;
-    if(req.file)
-      user.avatar = fs.readFileSync(req.file.path);
+    let filePath = req.file ? req.file.path : 'api/assets/photo_not_found.png'
+    user.avatar = fs.readFileSync(filePath);
     user.save(function(err, user) {
       if (err)
         return res.send(500, err);
@@ -109,7 +110,9 @@ exports.show_avatar = function(req, res) {
       if(!user)
         return res.send(404, 'Any User was found with this id');
       res.contentType('image/jpg');
-      return res.send(user.avatar);
+      if(user.avatar)
+        return res.send(user.avatar);
+      return res.send(fs.readFileSync('api/assets/photo_not_found.png'));
   });
 };
 
